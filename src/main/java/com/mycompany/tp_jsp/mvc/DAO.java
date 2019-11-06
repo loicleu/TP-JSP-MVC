@@ -1,3 +1,5 @@
+package com.mycompany.tp_jsp.mvc;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -5,7 +7,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import javax.sql.DataSource;
-import com.mycompany.tp_jsp.mvc.CodeDiscount;
+
 
 
 
@@ -34,7 +36,7 @@ public class DAO {
 	}
         
         public int ajoutDCode(String code, float taux) throws SQLException{
-            int result;
+            int result=0;
             String sql = "INSERT INTO DISCOUNT_CODE VALUES (?,?)";
             try (Connection connection = myDataSource.getConnection(); 
 		     PreparedStatement stmt = connection.prepareStatement(sql)){
@@ -43,24 +45,20 @@ public class DAO {
                 result=stmt.executeUpdate();
                 
             }
+            return result;  
+        }
+        
+        public int deleteCode(String code) throws SQLException {
+            int result=0;
+            String sql = "DELETE FROM DISCOUNT_CODE WHERE DISCOUNT_CODE=?";
+            try (Connection connection = myDataSource.getConnection(); 
+		     PreparedStatement stmt = connection.prepareStatement(sql)){
+                stmt.setString(1,code);
+                result=stmt.executeUpdate();
+            }
             return result;
             
             
             
-            
-            
-            
-            
-            
         }
-}
-
-
-
-
-
-
-
-
-
 }
